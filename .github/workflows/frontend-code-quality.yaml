@@ -6,7 +6,7 @@ on:
       setup-action:
         description: "Reusable setup action (Node, deps, etc.)"
         type: string
-        default: santiago-garrote/setup-js-project@v1
+        default: santiago-garrote/setup-node-project@v1
 
       working-directory:
         description: "Project root directory"
