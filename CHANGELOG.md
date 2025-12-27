@@ -2,12 +2,25 @@
 
 <!--toc:start-->
 - [Changelog](#changelog)
+  - [v1.1.1](#v111)
   - [v1.1.0](#v110)
 <!--toc:end-->
 
 All notable changes to this repository are documented in this file.
 
 This project follows Semantic Versioning.
+
+---
+
+## v1.1.1
+
+### Changed
+- Frontend Code Quality workflow
+  - Removed coverage artifact handling to simplify the workflow
+  - Coverage generation and upload are now responsibility of consuming workflows
+
+### java-ci
+- No changes
 
 ---
 
@@ -22,4 +35,3 @@ This project follows Semantic Versioning.
 
 ### java-ci
 - No changes
-
