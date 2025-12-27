@@ -1,0 +1,98 @@
+name: Frontend – Code Quality
+
+on:
+  workflow_call:
+    inputs:
+      setup-action:
+        type: string
+        required: true
+
+      working-directory:
+        type: string
+        default: frontend
+
+      typecheck-command:
+        type: string
+        default: ""
+
+      lint-command:
+        type: string
+        default: ""
+
+      format-command:
+        type: string
+        default: ""
+
+      test-command:
+        type: string
+        default: ""
+
+      coverage-path:
+        type: string
+        default: ""
+
+      coverage-artifact-name:
+        type: string
+        default: coverage-report
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    name: Type check
+    if: ${{ inputs.typecheck-command != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ${{ inputs.setup-action }}
+
+      - name: Run type check
+        working-directory: ${{ inputs.working-directory }}
+        run: ${{ inputs.typecheck-command }}
+
+  lint:
+    name: Lint
+    if: ${{ inputs.lint-command != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ${{ inputs.setup-action }}
+
+      - name: Run lint
+        working-directory: ${{ inputs.working-directory }}
+        run: ${{ inputs.lint-command }}
+
+  format:
+    name: Format check
+    if: ${{ inputs.format-command != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ${{ inputs.setup-action }}
+
+      - name: Run format check
+        working-directory: ${{ inputs.working-directory }}
+        run: ${{ inputs.format-command }}
+
+  test:
+    name: Test
+    if: ${{ inputs.test-command != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ${{ inputs.setup-action }}
+
+      - name: Run tests
+        working-directory: ${{ inputs.working-directory }}
+        run: ${{ inputs.test-command }}
+
+  coverage:
+    name: Upload coverage report
+    if: ${{ inputs.coverage-path != '' && inputs.test-command != '' }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ${{ inputs.setup-action }}
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.coverage-artifact-name }}
+          path: ${{ inputs.working-directory }}/${{ inputs.coverage-path }}
