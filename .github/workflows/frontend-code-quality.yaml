@@ -3,42 +3,42 @@ name: Frontend – Code Quality
 on:
   workflow_call:
     inputs:
-      setup-action:
+      setup_action:
         description: "Reusable setup action (Node, deps, etc.)"
         type: string
         default: santiago-garrote/setup-node-project@v1
 
-      working-directory:
+      working_directory:
         description: "Project root directory"
         type: string
         default: frontend
 
-      typecheck-command:
+      typecheck_command:
         description: "Command to run type checking"
         type: string
         default: ""
 
-      lint-command:
+      lint_command:
         description: "Command to run linter"
         type: string
         default: ""
 
-      format-command:
+      format_command:
         description: "Command to run formatter check"
         type: string
         default: ""
 
-      test-command:
+      test_command:
         description: "Command to run tests"
         type: string
         default: ""
 
-      coverage-path:
+      coverage_path:
         description: "Relative path to generated coverage folder"
         type: string
         default: ""
 
-      coverage-artifact-name:
+      coverage_artifact_name:
         description: "Artifact name for coverage reports"
         type: string
         default: coverage-report
@@ -50,51 +50,51 @@ permissions:
 jobs:
   typecheck:
     name: Type check
-    if: ${{ inputs.typecheck-command != '' }}
+    if: ${{ inputs.typecheck_command != '' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ${{ inputs.setup-action }}
+      - uses: ${{ inputs.setup_action }}
 
       - name: Run type check
-        working-directory: ${{ inputs.working-directory }}
-        run: ${{ inputs.typecheck-command }}
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.typecheck_command }}
 
   lint:
     name: Lint
-    if: ${{ inputs.lint-command != '' }}
+    if: ${{ inputs.lint_command != '' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ${{ inputs.setup-action }}
+      - uses: ${{ inputs.setup_action }}
 
       - name: Run lint
-        working-directory: ${{ inputs.working-directory }}
-        run: ${{ inputs.lint-command }}
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.lint_command }}
 
   format:
     name: Format check
-    if: ${{ inputs.format-command != '' }}
+    if: ${{ inputs.format_command != '' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ${{ inputs.setup-action }}
+      - uses: ${{ inputs.setup_action }}
 
       - name: Run format check
-        working-directory: ${{ inputs.working-directory }}
-        run: ${{ inputs.format-command }}
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.format_command }}
 
   test:
     name: Test
-    if: ${{ inputs.test-command != '' }}
+    if: ${{ inputs.test_command != '' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ${{ inputs.setup-action }}
+      - uses: ${{ inputs.setup_action }}
 
       - name: Run tests
-        working-directory: ${{ inputs.working-directory }}
-        run: ${{ inputs.test-command }}
+        working-directory: ${{ inputs.working_directory }}
+        run: ${{ inputs.test_command }}
 
       - name: Upload coverage artifact
-        if: ${{ inputs.coverage-path != '' }}
+        if: ${{ inputs.coverage_path != '' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.coverage-artifact-name }}
-          path: ${{ inputs.working-directory }}/${{ inputs.coverage-path }}
+          name: ${{ inputs.coverage_artifact_name }}
+          path: ${{ inputs.working_directory }}/${{ inputs.coverage_path }}
