@@ -49,6 +49,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: santiago-garrote/setup-node-project@v1
+        with:
+          working-directory: ${{ inputs.working_directory }}
 
       - name: Run type check
         working-directory: ${{ inputs.working_directory }}
@@ -60,6 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: santiago-garrote/setup-node-project@v1
+        with:
+          working-directory: ${{ inputs.working_directory }}
 
       - name: Run lint
         working-directory: ${{ inputs.working_directory }}
@@ -71,6 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: santiago-garrote/setup-node-project@v1
+        with:
+          working-directory: ${{ inputs.working_directory }}
 
       - name: Run format check
         working-directory: ${{ inputs.working_directory }}
@@ -82,6 +88,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: santiago-garrote/setup-node-project@v1
+        with:
+          working-directory: ${{ inputs.working_directory }}
 
       - name: Run tests
         working-directory: ${{ inputs.working_directory }}
